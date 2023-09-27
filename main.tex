@@ -1,0 +1,182 @@
+\documentclass{rapportULB}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+\usepackage{url}
+\usepackage{lipsum}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{awesomebox}
+\usepackage{color}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage[nottoc,numbib]{tocbibind}
+\usepackage{tabularx}
+\usepackage{svg}
+\usepackage{rotating}
+\usepackage{float}
+\usepackage{ulem}
+\usepackage{stmaryrd}
+\usepackage{amssymb}
+\usepackage{mathtools}    % 
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3}
+
+\newcommand\eindent{\endgroup}
+
+
+\makeatletter
+    \newcommand{\pushright}[1]{\ifmeasuring@#1\else\omit\hfill$\displaystyle#1$\fi\ignorespaces}
+    \newcommand{\pushleft}[1]{\ifmeasuring@#1\else\omit$\displaystyle#1$\hfill\fi\ignorespaces}
+\makeatother
+
+\title{infoFond} %Titre du fichier
+
+\begin{document}
+
+%----------- Informations du rapport ---------
+
+\titre{Synthèse} %Titre du fichier .pdf
+\UE{INFO-F302} %Nom de la UE
+\sujet{Informatique Fondamentale} %Nom du sujet
+
+\enseignant{E. \textsc{Filiot}} %Nom des enseignants
+
+\eleves{Hugo \textsc{Callens}} %Nom des élèves
+
+%----------- Initialisation -------------------
+        
+\fairemarges %Afficher les marges
+\fairepagedegarde %Créer la page de garde
+
+%------------ Corps du rapport ----------------
+
+%------------ Chapitre 1 ----------------------
+\section{Logique propositionnelle}
+\subsection{Construction de formules}
+Le vocabulaire du langage de la logique propositionnelle est composé de :
+\begin{enumerate}
+  \item de propositions $x$, $y$, $z$, ...; ou $X$, $Y$, $Z$, ...;
+  \item de deux constantes vrai ($\top$ ou $1$) et faux ($\bot$ ou $0$);
+  \item d'un ensemble de connecteurs logiques : $\neg$, $\wedge$, $\vee$, $\rightarrow$, $\leftrightarrow$.
+  \item de parantheses $(\ )$.
+\end{enumerate}
+
+
+\subsection{Sémantique}
+\tipbox{La sémantique d'une formule est la valeur de vérité de cette formule. La valeur de vérité d'une formule
+$\Phi$ formée àpd propositions d'un ensemble $X$, évaluée avec la fonction d'interprétation $V$, est notée $\llbracket \Phi \rrbracket_V$.
+La fonction $\llbracket \Phi \rrbracket_V$ est définie par induction sur la syntaxe de $\Phi$ de la façon suivante :
+\begin{itemize}[label=$\bullet$]
+  \item $\llbracket \top\rrbracket_V = 1$ ; $\llbracket \bot\rrbracket_V = 0$ ; $\llbracket x\rrbracket_V = V(x)$
+  \item $\llbracket \neg \Phi\rrbracket_V = 1 - \llbracket \Phi\rrbracket_V$
+  \item $\llbracket \Phi_1 \vee \Phi_2\rrbracket_V = \text{max}(\llbracket\Phi_1\rrbracket_V,\llbracket\Phi_2\rrbracket_V)$
+  \item $\llbracket \Phi_1 \land \Phi_2\rrbracket_V = \text{min}(\llbracket\Phi_1\rrbracket_V,\llbracket\Phi_2\rrbracket_V)$
+  \item $\llbracket \Phi_1 \leftarrow \Phi_2\rrbracket_V = \text{max}(1 - \llbracket\Phi_1\rrbracket_V,\llbracket\Phi_2\rrbracket_V)$
+  \item $\llbracket \Phi_1 \leftrightarrow \Phi_2\rrbracket_V = \text{min}(\llbracket\Phi_1\rightarrow\Phi_2\rrbracket_V,\llbracket\Phi_2\rightarrow\Phi_1\rrbracket_V)$
+\end{itemize}
+Nous notons $V\vDash\Phi\Leftrightarrow\llbracket\Phi\rrbracket_V=1$ soit "$V$ satisfait $\Phi$."}
+
+L'information contenue dans la définition est souvent représentée sous forme de table de verité : 
+\begin{center}
+  \begin{tabular}{|c|c|c|c|c|c|}
+    \hline 
+    $\Phi_1$ & $\Phi_2$ & $\Phi_1\vee\Phi_2$ & $\Phi_1\wedge\Phi_2$ & $\Phi_1\rightarrow\Phi_2$ & $\Phi_1\leftrightarrow\Phi_2$ \\ 
+    \hline 
+    0 & 0 & 0 & 0 & 1 & 1 \\ 
+    \hline 
+    0 & 1 & 1 & 0 & 1 & 0 \\ 
+    \hline 
+    1 & 0 & 1 & 0 & 0 & 0 \\ 
+    \hline 
+    1 & 1 & 1 & 1 & 1 & 1 \\ 
+    \hline 
+  \end{tabular}
+\end{center}
+\warningbox{Dans l'implication suivante : $\Phi_1\rightarrow\Phi_2$, la cas où $\Phi_1$ est faux ne nous intéresse pas. Dans ce cas, l'implication est toujours vraie.}
+
+
+
+\subsection{Validité et Stabilité}
+\subsubsection{Définitions}
+\tipbox{Une formule propositionnelle $\Phi$ est \textbf{satisfaisable} $\Leftrightarrow$ il existe une fonction d'interprétation $V$ pour les propositions de $\Phi$, telle que 
+$V\vDash\Phi$.}
+\tipbox{Une formule propositionnelle $\Phi$ est \textbf{valide} $\Leftrightarrow$ pour toute fonction d'interprétation $V$ pour les propositions de $\Phi$, $V\vDash\Phi$.}
+
+\subsubsection{Conséquence logique}
+\tipbox{Soit $\Phi_1,...,\Phi_n,\Phi$ des formules. On dira que $\Phi$ est une \textbf{conséquence logique} de $\Phi_1,...,\Phi_n$, noté $\Phi_1,...,\Phi_n\vDash\Phi$, si ($\Phi_1\land ...\land\Phi_n$)$\rightarrow\Phi$ est valide.}
+
+\subsubsection{Equivalence}
+\tipbox{Deux formules, $\Phi$ et $\Psi$, sont \textbf{équivalentes} si la formule $\Phi\leftrightarrow\Psi$ est valide. On notera $\Phi\equiv\Psi$.}
+Pour toutes formules $\Phi_1,\Phi_2,\Phi_3$ :
+\begin{itemize}[label=$\bullet$]
+  \item $\neg\neg\Phi_1\equiv\Phi_1$
+  \item $\neg(\Phi_1\land\Phi_2)\equiv(\neg\Phi_1\lor\neg\Phi_2)$
+  \item $\neg(\Phi_1\lor\Phi_2)\equiv(\neg\Phi_1\land\neg\Phi_2)$
+  \item $\Phi_1\land(\Phi_2\lor\Phi_3)\equiv(\Phi_1\land\Phi_2)\lor(\Phi_1\land\Phi_3)$
+  \item $\Phi_1\lor(\Phi_2\land\Phi_3)\equiv(\Phi_1\lor\Phi_2)\land(\Phi_1\lor\Phi_3)$
+  \item $\Phi_1\rightarrow\Phi_2\equiv(\neg\Phi_1\lor\Phi_2)$
+\end{itemize}
+
+\subsubsection{Lien entre satisfaisabilité et validité}
+\importantbox{Une formule $\Phi$ est valide $\Leftrightarrow$ $\neg\Phi$ est insatisfaisable.}
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.5]{pictures/satisf:vali.png}
+  \caption{Lien entre satisfaisabilité et validité}
+\end{figure}
+
+
+\subsubsection{Tableaux sémantiques}
+\tipbox{Un littéral est une proposition $x$ ou la négation d'une proposition $\neg x$.}
+La méthode des tableaux sémantiques est un algorithme pour tester la satisfaisabilité d'une formule. Elle consiste à construire un arbre dont les noeuds sont des formules et les feuilles sont des littéraux. On construit l'arbre de la façon suivante :
+\begin{itemize}[label=$\bullet$]
+  \item On place la formule à tester à la racine de l'arbre.
+  \item On applique les règles suivantes jusqu'à ce que l'arbre soit complet :
+  \begin{itemize}[label=$\circ$]
+    \item Si la formule à tester est une constante, on arrête.
+    \item Si la formule à tester est une conjonction, on ajoute les deux conjoncteurs comme fils de la formule à tester.
+    \item Si la formule à tester est une disjonction, on ajoute un fils avec le premier disjoncteur et un autre fils avec le deuxième disjoncteur.
+    \item Si la formule à tester est une implication, on ajoute un fils avec la négation de l'antécédent et un autre fils avec le conséquent.
+    \item Si la formule à tester est une équivalence, on ajoute un fils avec la négation de la première formule et un autre fils avec la deuxième formule.
+    \item Si la formule à tester est une négation, on ajoute un fils avec la négation de la formule à tester.
+  \end{itemize}
+\end{itemize}
+
+\end{document}
