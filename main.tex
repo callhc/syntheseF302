@@ -1,77 +1,14 @@
-\documentclass{rapportULB}
+\documentclass[a4paper, 12pt]{extarticle}
 
-\usepackage{tcolorbox}
-\tcbuselibrary{minted,breakable,xparse,skins}
-\usepackage{url}
-\usepackage{lipsum}
-\usepackage{enumitem}
-\usepackage{hyperref}
-\usepackage{awesomebox}
-\usepackage{color}
-\usepackage{amsmath}
-\usepackage{algorithm}
-\usepackage{algpseudocode}
-\usepackage[nottoc,numbib]{tocbibind}
-\usepackage{tabularx}
-\usepackage{svg}
-\usepackage{rotating}
-\usepackage{float}
-\usepackage{ulem}
-\usepackage{stmaryrd}
-\usepackage{amssymb}
-\usepackage{mathtools}    % 
+\input{preamble.tex} 
 
 
-\definecolor{bg}{gray}{0.95}
-\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
-  breakable=true,
-  listing engine=minted,
-  listing only,
-  minted language=#2,
-  minted style=default,
-  minted options={%
-    linenos,
-    gobble=0,
-    breaklines=true,
-    breakafter=,,
-    fontsize=\small,
-    numbersep=8pt,
-    #1},
-  boxsep=0pt,
-  left skip=0pt,
-  right skip=0pt,
-  left=25pt,
-  right=0pt,
-  top=3pt,
-  bottom=3pt,
-  arc=5pt,
-  leftrule=0pt,
-  rightrule=0pt,
-  bottomrule=2pt,
-  toprule=2pt,
-  colback=bg,
-  colframe=orange!70,
-  enhanced,
-  overlay={%
-    \begin{tcbclipinterior}
-    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
-    \end{tcbclipinterior}},
-  #3}
+% Based on 'Fun Template 1', available at https://www.overleaf.com/latex/templates/fun-template-1/drwvdzsrpgzz
 
-\newcommand\eindent{\endgroup}
-
-
-\makeatletter
-    \newcommand{\pushright}[1]{\ifmeasuring@#1\else\omit\hfill$\displaystyle#1$\fi\ignorespaces}
-    \newcommand{\pushleft}[1]{\ifmeasuring@#1\else\omit$\displaystyle#1$\hfill\fi\ignorespaces}
-\makeatother
-
-\title{infoFond} %Titre du fichier
 
 \begin{document}
 
-%----------- Informations du rapport ---------
-
+%================= Settings front page =================
 \titre{Synthèse} %Titre du fichier .pdf
 \UE{INFO-F302} %Nom de la UE
 \sujet{Informatique Fondamentale} %Nom du sujet
@@ -79,15 +16,18 @@
 \enseignant{E. \textsc{Filiot}} %Nom des enseignants
 
 \eleves{Hugo \textsc{Callens}} %Nom des élèves
+% \maketitle
+\makemargins %Afficher les marges
+\makefrontpage
+\maketoc
 
-%----------- Initialisation -------------------
-        
-\fairemarges %Afficher les marges
-\fairepagedegarde %Créer la page de garde
+%=======================================================
 
-%------------ Corps du rapport ----------------
+% this is the orginal latex code of the template
+% \input{example}
 
-%------------ Chapitre 1 ----------------------
+%================= Content =============================
+
 \section{Logique propositionnelle}
 \subsection{Construction de formules}
 Le vocabulaire du langage de la logique propositionnelle est composé de :
@@ -178,5 +118,20 @@ La méthode des tableaux sémantiques est un algorithme pour tester la satisfais
     \item Si la formule à tester est une négation, on ajoute un fils avec la négation de la formule à tester.
   \end{itemize}
 \end{itemize}
+
+
+
+
+
+
+
+
+
+
+%================= Bibliography ========================
+% \newpage
+% \phantomsection % Required if hyperref is used
+% \addcontentsline{toc}{section}{References} % Adding bibliography to table of contents
+% \printbibliography % Print the bibliography
 
 \end{document}
