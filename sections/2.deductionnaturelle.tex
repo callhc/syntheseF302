@@ -1,0 +1,194 @@
+\begin{definition}{Déduction naturelle}{déduction_naturelle}
+    La déduction naturelle est un système de preuve pour la logique propositionnelle. Il est composé de règles d'inférence qui permettent de déduire de nouvelles formules à partir de formules existantes. Une preuve est un arbre dont les noeuds sont des formules et les feuilles sont des axiomes. Une preuve est correcte si elle respecte les règles d'inférence. Une preuve est complète si elle contient toutes les formules qui sont des conséquences logiques des axiomes.
+\end{definition}
+\subsection{Règles pour la conjonction}
+\begin{itemize}[label=$\bullet$]
+\item Règle d'introduction :
+\begin{equation*}
+    \frac{\Phi\quad\Psi}{\Phi\land\Psi}\bigwedge i
+\end{equation*}
+\item Règle d'élimination :
+\begin{equation*}
+    \frac{\Phi\land\Psi}{\Phi}\bigwedge e_1\quad\frac{\Phi\land\Psi}{\Psi}\bigwedge e_2
+\end{equation*}
+\end{itemize}
+\begin{example}
+La règle d'introduction se lit : si j'ai une preuve de $\Phi$ et une preuve de $\Psi$, alors j'ai une preuve de $\Phi\land\Psi$.
+\end{example}
+
+\subsection{Règles pour la double négation}
+\begin{itemize}[label=$\bullet$]
+\item Règle d'introduction :
+\begin{equation*}
+    \frac{\Phi}{\neg\neg\Phi}\neg\neg i
+\end{equation*}
+\item Règle d'élimination :
+\begin{equation*}
+    \frac{\neg\neg\Phi}{\Phi}\neg\neg e
+\end{equation*}
+\end{itemize}
+
+
+\subsection{Elimination de l'implication : Modus Ponens}
+Règle d'élimination :
+\begin{equation*}
+\frac{\Phi\quad\Phi\rightarrow\Psi}{\Psi}\rightarrow_\text{MP} (\text{ou} \rightarrow_e)
+\end{equation*}
+\begin{example} 
+$\;$
+\begin{enumerate}
+    \item $\Phi$ : "Il pleut"
+    \item $\Psi$ : "S'il pleut, "je prends mon parapluie"
+    \item Alors on en déduit que "je prends mon parapluie"
+\end{enumerate}
+\end{example}
+
+En contraposition, nous avons le Modus Tollens :
+\begin{equation*}
+\frac{\Phi\rightarrow\Psi\quad\neg\Psi}{\neg\Phi}\rightarrow_\text{MT}
+\end{equation*}
+\begin{example}
+$\;$
+\begin{enumerate}
+    \item $\Phi$ : "s'il pleut, alors la route est mouillée"
+    \item $\Psi$ : "la route n'est pas mouillée"
+    \item Alors on en déduit que "il ne pleut pas"
+\end{enumerate}
+\end{example}
+
+\subsection{Règle pour l'introduction de l'implication}
+\begin{align*}
+&\Phi\text{hyp.} \\
+&...\\
+&\frac{\Psi\text{fin hyp.}}{\Phi\rightarrow\Psi}\rightarrow_i
+\end{align*}
+\warningbox{Lorsqu'on posera une hypoèse, on indentera l'hypothèse et toutes les lignes de la sous-preuve, jusqu'à la fermeture d'hypothèse.}
+\begin{example}
+    Ici, on va voir un exemple de ce qu'on a vu jusque maintenant :\newline
+    On veut démontrer : $t \vdash (t\rightarrow p)\rightarrow(q\rightarrow(s\rightarrow p))$ \\
+    Ici le prémisse est "t est vrai", le prémisse sera toujours ce qui se trouve à gauche de la déduction.\\
+    \begin{align*}
+        &1. \quad t \quad\quad\quad\quad\quad\quad\quad\quad \text{prémisse}.\\
+        &2. \quad\quad t\rightarrow p \quad\quad\quad\quad\quad\quad\quad\quad \text{hyp}_1.\\
+        &3. \quad\quad\quad q \quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad \text{hyp}_2.\\
+        &4. \quad\quad\quad\quad s\rightarrow p \quad\quad\quad\quad\quad\quad\quad\quad\quad \text{hyp}_3.\\
+        &5. \quad\quad\quad\quad\quad p \quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad \text{MP(1,2),fin hyp}_3.\\
+        &6. \quad\quad\quad\quad s\rightarrow p \quad\quad\quad\quad\quad\quad\quad\quad\quad \rightarrow_i\text{(4,5),fin hyp}_2.\\
+        &7. \quad\quad\quad q\rightarrow(s\rightarrow p) \quad\quad\quad\quad\quad\quad \rightarrow_i\text{(3,6),fin hyp}_1.\\
+        &8. \quad (t\rightarrow p)\rightarrow(q\rightarrow(s\rightarrow p)) \quad\quad \rightarrow_i\text{(2,7)}.
+    \end{align*}
+
+    Nous pouvons également prouver des formules sans prémisse comme suit :
+    \begin{align*}
+        &1. \quad\quad p \quad\quad\quad\quad\quad\quad\quad\quad\quad \text{hyp}\\
+        &2. \quad\quad\quad\quad \neg\neg p \quad\quad\quad\quad\quad\quad \neg\neg_i(1),\text{fin hyp.}\\
+        &3. \quad\quad p\rightarrow\neg\neg p \quad\quad\quad\quad\quad \rightarrow_i(1,2).
+    \end{align*}
+    On a établit que $\vdash p \rightarrow\neg\neg p$.
+    \begin{remark}
+        Les formules $\Phi$ telles que : $\vdash\Phi$ sont appelées des théorèmes.
+    \end{remark}
+\end{example}
+
+
+
+\subsection{Règle pour l'ouverture et la fermeture d'hypothèses}
+\begin{itemize}[label=$\bullet$]
+\item toute hypothèse introduite doit être fermée.
+\item on ne peut jamais fermer deux hypothèses en même temps.
+\item Une fois une hypothèse fermée, on ne peut pas utilsier les formules déduites entre l'ouverture et la fermeture de cette hypothèse.
+\end{itemize}
+
+
+\subsection{Règle pour l'introduction de la disjonction}
+\begin{equation*}
+\frac{\Phi}{\Phi\lor\Psi}\lor_{i_2}\quad\frac{\Psi}{\Phi\lor\Psi}\lor_{i_2}
+\end{equation*}
+
+\subsection{Elimination de la disjonction}
+\begin{align*}
+    &\Psi_1 \text{hyp.} \quad \Psi_2 \text{hyp.} \\
+    &...\quad\quad\quad ...\\
+    &\frac{\Psi_1\lor\Psi_2\quad\Phi\text{fin hyp.}\quad\Phi\text{fin hyp.}}{\Phi}\lor_e
+\end{align*}
+\begin{example}
+    Supposons que les faits suivants soient vrais : 
+    \begin{enumerate}
+        \item si ma note d'examen est excellente, j'irai boire un verre.
+        \item si ma note d'examen est bonne, j'irai boire un verre.
+        \item ma note sera excellente ou bonne.
+    \end{enumerate}
+    Alors je peux en déduire que j'irai boire un verre.
+\end{example}
+\warningbox{Ici aussi, on ne peut pas utiliser l'hypothèse temporaire faite pour l'autre cas. (sauf si elle a été établie avant)}
+
+\subsection{Règle de copie}
+\begin{equation*}
+\frac{\Phi}{\Phi}\text{copie}
+\end{equation*}
+
+\subsection{Règle pour la négation}
+Les contradictions sont des formules de la forme : 
+\begin{align*}
+    \neg\Phi\land\Phi\quad \text{ou}\quad \neg\Phi\land\neg\Phi
+\end{align*}
+Toutes les contradictions sont logiquement équivalentes à la formule $\bot$. (rappel: $\bot$ est une formule qui est toujours fausse) \newline
+Le fait que l'on peut tout déduire à partir d'une contradiction est formalisé par la règle suivante :
+\begin{equation*}
+\frac{\bot}{\Phi}\bot_e
+\end{equation*}
+Le fait que $\bot$ représente une contradiction est formalisé par la règle suivante :
+\begin{equation*}
+\frac{\Phi\quad\neg\Phi}{\bot}\neg_e
+\end{equation*}
+Afin d'introduire une négation, supposons que l'on fasse une hypothèse et que l'on arrive à déduire une contradiction, dans ce cas, l'hypothèse est fausse. Ceci est formaisé par la règle suivante :
+\begin{align*}
+    &\Phi \quad \text{hyp.}\\
+    &...\\
+    &\frac{\bot\text{fin hyp.}}{\neg\Phi}\neg_i
+\end{align*}
+
+
+\subsection{Règles pour l'équivalence}
+\begin{equation*}
+    \frac{\Phi_1\rightarrow\Phi_2\quad\Phi_2\rightarrow\Phi_1}{\Phi_1\leftrightarrow\Phi_2}\leftrightarrow_i
+\end{equation*}
+\begin{equation*}
+    \frac{\Phi_1\leftrightarrow\Phi_2}{\Phi_1\rightarrow\Phi_2}\leftrightarrow_{e_1}\quad\frac{\Phi_1\leftrightarrow\Phi_2}{\Phi_2\rightarrow\Phi_1}\leftrightarrow_{e_2}
+\end{equation*}
+
+\subsection{Règles dérivées}
+Il existe de nombreuses formules dérivées qui peuvent s'obtenir à partir des autres règles vues plus haut. (à voir si beaucoup utilisée au TP, si oui, ajouter : MT,RAA,LEM)
+
+
+\subsection{Théorèmes}
+\begin{definition}{adéquation}{adéquation}
+Pour tout $\Psi_1,...,\Psi_n,\Psi$, si $\Psi_1,...,\Psi_n\vdash\Psi$ alors $\Psi_1,...,\Psi_n\vDash\Psi$.
+\end{definition}
+\begin{definition}{complétude}{complétude}
+Pour tout $\Psi_1,...,\Psi_n,\Psi$, si $\Psi_1,...,\Psi_n\vDash\Psi$ alors $\Psi_1,...,\Psi_n\vdash\Psi$.
+\end{definition}
+
+\subsection{Démontrer une implication}
+Il existe deux méthodes pour démontrer une implication ($A\rightarrow B$):
+\begin{enumerate}
+    \item On suppose A et on en déduit B.
+    \item On suppose non B et on en déduit non A.
+\end{enumerate}
+
+\subsection{Démontrer une équivalence}
+Il existe deux méthodes pour démontrer une équivalence ($A\leftrightarrow B$):
+\begin{enumerate}
+    \item On suppose A et on en déduit B et réciproquement on suppose B et on en déduit A.
+    \item On prouve une chaîne d'équivalences.
+\end{enumerate}
+
+\subsection{Preuve par cas}
+Ce type de preuve repose sur une généralisation de la règle $\lor_e$ : si on sait qu'on est soit dans le cas $A_1$ soit dans le cas $A_n$, et que pout tout $i\in\{1,...,n\}$, on peut démontrer une propriété $P$, alors c'est que $P$ est vraie.
+
+\subsection{Preuve par contradiction}
+On veut démontrer une propriété $P$. On suppose son contraire $\neg P$ et on en déduit une contradiction. On en déduit que $P$ est vraie.
+
+\begin{remark}
+Cette partie du cours nécessite de prendre le temps de bien comprendre les exemples donnés dans le cours ainsi que les exercices vus au TP.
+\end{remark}
