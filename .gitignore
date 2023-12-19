@@ -3,6 +3,8 @@
 *.log 
 *.toc 
 *.nlo
+*.bcf
+*.run.xml
 *.synctex.gz
 *.listing
 build/
