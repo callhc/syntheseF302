@@ -1,1 +1,267 @@
 \subsection{Introduction}
+
+En logique des prédicats ;
+\begin{itemize}[label=\textbullet]
+    \item on ajoute les quantificateurs.
+    \item on généralise les valeurs que peuvent prendre les variables.
+    \item on ajoute des relations poiur décrire certianes relation entre ces valeurs.
+    \item on ajoute des symboles de fonctions à la syntaxe.
+\end{itemize}
+\begin{example}
+    $\forall x\forall y \cdot \text{PremierEntreEux}(x,y)\leftrightarrow \exists x'\exists y' \cdot x.x'
+    + y.y' = 1$
+    \begin{itemize}[label=\textbullet]
+        \item PremierEntreEux est un prédicat à deux arguments.
+        \item 1 est appelée constante.
+        \item $x x' + y y'$ est un terme formé avec les fonctions $\times$ et $.$
+    \end{itemize}
+\end{example}
+
+\subsection{Syntaxe}
+\label{subsec:syntaxe}
+\subsubsection{Alphabet}
+\label{subsubsec:alphabet}
+L'alphabet d'un langage du premier ordre comporte d'abord les symboles suivants qui sont communs à tous ces langages :
+\begin{itemize}[label=\textbullet]
+    \item les connecteurs : $\neg,\wedge,\vee,\rightarrow\leftrightarrow$;
+    \item les paranthèses : $(,)$;
+    \item le quantificateur universel $\forall$ et le quantificateur existentiel $\exists$;
+    \item un ensemble infini $\vee$ de symboles de variables $x,y,z,\dots$;
+\end{itemize}
+\begin{definition}{Langage de la logique du premier ordre}{lg_1_ordre}
+    Un langgage $\mathcal{L}$ de la logique du premier ordre est caractérisé par :
+    \begin{itemize}[label=\textbullet]
+        \item des symboles de relations (prédicats), notés $p,q,r,s,\dots$;
+        \item des symboles de fonctions, notés $f,g,h,\dots$;
+        \item des symboles de constantes, notés $c,d,e,\dots$;
+    \end{itemize}
+    À chaque prédicat $p$, respectivement fonction $f$, on associe un entier strictement positif appelé 
+    l'arité de $p$, respectivement de $f$, càd le nombre d'arguments de $p$, respectivement $f$. On notera parfois $p|_n$ 
+    et $f|_n$ pour indiquer que $p$ (respectivement $f$) est un symbole de relation (respectivement de fonction) d'arité $n$.\\
+    Le prédicat "=" sera toujours présent.
+\end{definition}
+\begin{example}
+    Exemples de langages :
+    \begin{itemize}[label=\textbullet]
+        \item $\mathcal{L}_1 = \{r|_1,c\}$ contient un prédicat unaire $r$ et une constante $c$;
+        \item $\mathcal{L}_2 = \{r|_2,f|_1,g|_2,h|_2,c,d\}$ contient un prédicat binaire $r$, une fonction unaire $f$,
+        deux symboles de fonctions binaires $g$ et $h$ et deux constantes $c$ et $d$.\\
+    \end{itemize}
+\end{example}
+
+\subsubsection{Construction des termes}
+\label{subsubsec:construction_termes}
+\begin{definition}{Termes d'un langage}{termes_langage}
+    L'ensemble des termes d'un langage $\mathcal{L}$ est le plus petit ensemble qui contient les symboles de constantes et de
+    variables et qui est clos par application des fonction.\\
+    L'ensemble des termes, noté $\mathcal{T}$, est le plus petit ensemble satisfaisant :
+    \begin{enumerate}
+        \item Tout symbole de constante ou variable est un terme.
+        \item Si $f$ est un symbole de fonction d'arité $n$ et $t_1,t_2,\cdots,t_n$ sont des termes alors $f(t_1,t_2,\cdots,t_n)$ est un terme.
+        est un terme.
+    \end{enumerate}
+\end{definition}
+\begin{example}
+    Voici des exemples :
+    \begin{itemize}[label=\textbullet]
+        \item Les seuls termes du langages $\mathcal{L}_1$ sont la constante $c$ et les variables.
+        \item Les expressions suivantes sont des termes du langage $\mathcal{L}_2$ : 
+        \begin{itemize}[label=\textbullet]
+            \item $f(c)$
+            \item $f(h(f(c),d))$
+            \item $f(y)$
+            \item $f(h(f(x),f(d)))$
+        \end{itemize}
+    \end{itemize}
+\end{example}
+\noindent Un terme est \textbf{clos} s'il est sans variable. Ici, $f(c)$ est clos.
+
+\subsubsection{Construction des formules}
+\label{subsubsec:construction_formules}
+\begin{definition}{Formules d'un langage}{formules_langage}
+    L'ensemble des formules du langage $\mathcal{L}$, que l'on désigne par $\mathcal{F(L)}$, est défini par la grammaire suivante:
+    \begin{equation*}
+        \phi ::= p(t_1,\cdots,t_n)|\phi\wedge\phi|\phi\vee\phi|\neg\phi|\phi\rightarrow\phi|\phi\leftrightarrow\phi|\exists x
+        \cdot\phi|\forall x\cdot\phi|(\phi)
+    \end{equation*}
+    \begin{itemize}[label=\textbullet]
+        \item $t_1,\cdots,t_n$ sont des termes;
+        \item $p$ est un symbole de relation;
+        \item $\exists x$ est le quantificateur existentiel;
+        \item $\forall x$ est le quantificateur universel;
+    \end{itemize}
+\end{definition}
+\begin{example}
+    Voici des exemples :
+    \begin{itemize}[label=\textbullet]
+        \item La formule $r(c)\vee\neg\exists x\cdot r(x)$ est une formule du langage $\mathcal{L}_1$.
+        \item Exemples de formules du langage $\mathcal{L}_2$ :
+        \begin{itemize}[label=\textbullet]
+            \item $\forall x\cdot\exists y(g(x,y) = c\wedge g(x,y) = c)$
+            \item $\forall x\cdot\neg(f(x)=c)$
+        \end{itemize}
+    \end{itemize}
+\end{example}
+
+\subsubsection{Règles de précédence}
+\label{subsubsec:règles_précédence}
+Pour les Booléens, ce sont les mêmes règles de précédence que dans la logique propositionnelle (cf. \ref{sec:logique_propositionnelle}).
+Les quantificateurs ont la même priorité que la négation.
+\begin{equation*}
+    \forall x\cdot\neg p(x,y)\vee p(y,x) \equiv (\forall x\cdot\neg(p(x,y)))\vee p(y,x)
+\end{equation*}
+
+\subsubsection{Variables libres et liées}
+\label{subsubsec:variables_libres_liées}
+\begin{definition}{Occurence de variable}{occurence_variable}
+    Une occurence d'une variable dans une formule est un couple constitué de cette variable et d'une place effective, càd qui
+    ne suit pas un quantificateur. 
+\end{definition}
+\begin{example}
+    Dans la formule :
+    \begin{equation*}
+        r(x,z)\rightarrow\forall z\cdot (r(y,z)\vee y=z)
+    \end{equation*}
+    La varible $x$ possède une occurence, la variable $y$ deux et la variable $z$ trois.
+\end{example}
+\begin{definition}{Variables libres ou liées}{variables_libres_liées}
+    \begin{itemize}[label=\textbullet]
+        \item Une occurence d'une variable $x$ dans une formule $\phi$ est une occurence \textbf{libre} si elle ne se trouve 
+        dans aucune sous-formule de $\phi$, qui commence par une quantification $\forall x$ ou $\exists x$.
+        \item Dans le cas contraire, l'occurence est dite \textbf{liée}.
+        \item Une variable est libre dans une formule si elle a au moins une occurence libre dans cette formule.
+        \item Une formule est close est une formule sans variable libre.
+        \item On note $\text{Libres}(\phi)$ l'ensemble des variables libres de $\phi$.
+    \end{itemize}
+\end{definition}
+\begin{example}
+    Dans $\exists x\cdot p(x,y)$, l'occurence de $x$ est liée et celle de $y$ est libre.
+\end{example}
+
+
+
+\subsection{Sémantique}
+\label{subsec:sémantique}
+
+\subsubsection{Interprétation des formules}
+\label{subsubsec:interprétation_formules}
+
+\begin{definition}{Structure}{structure}
+    Une structure $\mathcal{M}$ pour un langage $\mathcal{L}$ se compose d'un ensemble non vide $M$ appelé le domaine et d'une 
+    interprétation des symboles de prédicats par des relations sur $M$, des symboles de fonctions par des fonctions de $M$ et 
+    des constantes par des éléments de $M$.\\
+    Plus précisément, une structure est composée de :
+    \begin{itemize}[label=\textbullet]
+        \item d'un sous-ensemble de $M^n$, noté $p^\mathcal{M}$, pour chaque symbole de prédicat $r$ d'arité $n$ dans $\mathcal{L}$;
+        \item d'une fonction \textbf{totale} de $M^m$ dans $M$, notée $f^\mathcal{M}$, pour chaque symbole de fonction $f$ d'arité 
+        $m$ dans $\mathcal{L}$;
+        \item d'un élément de $M$, noté $c^\mathcal{M}$, pour chaque symbole de constante $c$ dans $\mathcal{L}$.
+    \end{itemize}
+\end{definition}
+\begin{example}
+    \begin{itemize}
+        \item Pour le langage $\mathcal{L}_1 = (r|_1c)$, la structure $\mathcal{M}_1 = (\mathbb{N}, r^{\mathcal{M}_1}, c^{\mathcal{m}_1})$ 
+        avec $r^{\mathcal{M}_1}$ l'ensemble des nombres premiers et $c^{\mathcal{M}_1} = 2$ est une interprétation de $\mathcal{L}_1$.
+        \item Pour le langage $\mathcal{L}_2 = (r|_2,f|_1,g|_2,h|_2,c,d)$, on peut prendre la structure sur les réels :
+        \begin{equation*}
+            \mathcal{M}_2 = (\mathbb{R}, \leq, +1,+,\times,0,1)
+        \end{equation*}
+        avec la fonction $+1$ qui à $x$ associe $x+1$.
+    \end{itemize}
+\end{example}
+\begin{theorem}{Formule satisfaite}{formule_satisfaite}
+    Une formule $\phi$ construite sur un langage $\mathcal{L}$ est satisfaite dans une structure $\mathcal{M}$ et pour une valuation
+    $v$ donnanat une valeur aux variables de l'ensemble $\mathcal{V}$ (noté $\mathcal{M}, v\vDash\emptyset$) ssi :
+    \begin{itemize}[label=\textbullet]
+        \item si $\phi\equiv r(t_1,t_2,\cdots,t_n)$ et $t_i^{\mathcal{M},v}=b_i$ pour $i=1,\cdots,n$, alors $\phi$ est vraie
+        ssi $(b_1,b_2,\cdots,b_n)\in r^{\mathcal{M}}$;
+        \item si $\phi\equiv\neg\psi_1, \phi\equiv\psi_1\vee\psi_2,\phi\equiv\psi_1\wedge\psi2,\phi\equiv\psi_1\rightarrow\psi_2,
+        \phi\equiv\psi_1\leftrightarrow\psi_2$ alors la valeur de $\phi$ est calculée àpd valeurs de $psi_1$ et $psi_2$ comme
+        dans le cas propositionnel.
+        \item si $\phi\equiv\exists x\cdot\psi$, alors $\phi$ est vraie ssi \textbf{il existe} une valuation $v'$ telle que $\mathcal{M},v'\vDash
+        \psi$ et $v'$ est d'accord (=$v'(x)=v(x)$) avec $v$ sur Libres($phi$).
+        \item si $\phi\equiv\forall x\cdot\psi$, alors $\phi$ est vraie ssi \textbf{pour toute} valuation $v'$ qui est d'accord avec $v$ sur
+        Libres($\phi$), on a $\mathcal{M},v'\vDash\psi$.
+    \end{itemize}
+\end{theorem}
+Lorsque $\mathcal{M},v\vDash\emptyset$, on dit que $\mathcal{M},v$ satisfait $\phi$ ou encore que ($\mathcal{M},v$) est un modèle de $\phi$.
+De pus, lorsque $\phi$ est une formule close, alors sa valeur de vérité dans un couple ($\mathcal{M},v$), ne dépend pas de $v$.
+On omettera de mentionner $v$ dans ce cas.
+\begin{example}
+    \begin{itemize}[label=\textbullet]
+        \item Prenons $\mathcal{L}_1=\{r|_2,c\}$. La formule close suivante :
+        \begin{equation*}
+            \begin{aligned}
+                &\forall x\cdot r(x,x)\\
+                \wedge&\forall x\cdot\forall y\cdot(r(x,y)\rightarrow r(y,x))\\
+                \wedge&\forall x\cdot\forall y\cdot\forall z\cdot(r(x,y)\wedge r(y,z)\rightarrow r(x,z))
+            \end{aligned}
+        \end{equation*}
+        exprime qu'une structure $(D,R,a)$ est un modèle de la formule ssi $R$ est une relation d'équivalence.
+        \item est-ce que $\exists x\cdot \forall y\cdot r(x,y)$ est vraie dans ($\mathbb{N},\leq$)?\\
+        "Est-ce qu'il existe un entier $x\in\mathbb{N}$ tel que $\forall y\in\mathbb{N}$, $x\leq y$?" oui, $x=0$.
+        
+    \end{itemize}
+\end{example}
+
+\subsubsection{Interprétation des termes dans une structure}
+\label{subsubsec:interprétation_termes_structure}
+
+\begin{definition}{Valuation}{valuation}
+    Etant donnés un ensemble de variables $\mathcal{V}$ et un domaine $M$, une \textit{valuation} pour les variables de $\mathcal{V}$
+    dans $M$ est une fonction $v:\mathcal{V}\rightarrow M$ qui attribue à chaque variable $x\in \mathcal{V}$, une valeur $v(x)\in M$.
+\end{definition}
+\begin{definition}{Interprétation de termes}{inter_terme}
+    L'interprétation d'un terme $t$ (dont les variables sont dans $\mathcal{V}$) dans une structure de domaine $M$ et selon une 
+    valuation $v$ est un élément $t^{\mathcal{M},v}\in M$, inductivement défini de la façon suivante :
+    \begin{itemize}[label=\textbullet]
+        \item si $t=c$ alors $t^{\mathcal{M},v} = c^{\mathcal{M}}$;
+        \item si $t=x$ alors $t^{\mathcal{M},v} = v(x)$ est $v(x)$;
+        \item si $t=f(t_1,\cdots,t_n)$ alors $t^{\mathcal{M},v} = f^{\mathcal{M}}(t_1^{\mathcal{M},v},\cdots,t_n^{\mathcal{M},v})$.
+    \end{itemize}
+\end{definition}
+\begin{example}
+    Soit $\mathcal{L}_2 = (r|_2,f|_1,g|_2,h|_2,c,d)$ et $\mathcal{M}_3 = (\mathbb{N},\leq,+1,+,\times,0,1)$.\\
+    L'interprétation dans $\mathcal{M}_3$ du terme 
+    \begin{equation*}
+        t_1 \equiv g(y,h(c,x))
+    \end{equation*}
+    selon la valuation $v$ telle que $v(x)=3, v(y)=4,v(z)=6$ est :
+    \begin{equation*}
+        t_1^{\mathcal{M}_3,v} = 4 + (0\times 3) = 4
+    \end{equation*}
+    L'interprétation du terme 
+    \begin{equation*}
+        t_2\equiv f(g(d,h(y,z)))
+    \end{equation*}
+    est :
+    \begin{equation*}
+        t_2^{\mathcal{M}_3,v} = 1 + (4\times 6) + 1 = 26
+    \end{equation*}
+\end{example}
+
+\subsubsection{Formules satisfaisables, valides et équivalentes}
+\label{subsubsec:formules_satisfaisables_valides_équivalentes}
+\begin{enumerate}
+    \item Une formule $\phi$ close est \textbf{satisfaisable} si elle un modèle. (il n'existe pas d'algo pour vérifier la satisfaisabilité
+    d'une formule).
+    \item Une formule $\phi$ close est \textbf{valide} si toutes les structures sont des modèles de $\phi$.
+    \item Deux formules $\phi_1,\phi_2$ telles que Libres($\phi_1$) = Libres($\phi_2$) sont \textbf{équivalentes} si la formule
+    $\forall x_1\cdots\forall x_n(\phi_1\leftrightarrow\phi_2)$ est valide, avec $\{x_1,\cdots,x_n\}$=Libres($\phi_1$).
+    \begin{example}
+        Voici quelques exemples de formules équivalentes :
+        \begin{itemize}[label=\textbullet]
+            \item $\forall x\cdot(\phi\wedge\psi)$ et $(\forall x\cdot\phi)\wedge(\forall x\cdot\psi)$
+            \item $\exists x\cdot(\phi\vee\psi)$ et $(\exists x\cdot\phi)\vee(\exists x\cdot\psi)$
+        \end{itemize}
+    \end{example}
+\end{enumerate}
+
+\subsubsection{Exemples de traductions de texte vers formules}
+\label{subsubsec:traductions_texte_vers_formules}
+\begin{itemize}[label=\textbullet]
+    \item L'anglais vit dans la maison rouge : $\forall x[\text{anglais}(x)\rightarrow\text{rouge}(x)]$
+    \item Le Suédois a des chiens : $\forall x[\text{suédois}(x)\rightarrow\text{chiens}(x)]$
+    \item La maison verte est directement à gauche de la maison blanche : \\
+    $\forall x\forall y(\text{succgauche}(x,y)\wedge\text{verte}(x))\rightarrow\text{blanche}(y)$
+\end{itemize}
