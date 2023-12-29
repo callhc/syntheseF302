@@ -18,7 +18,7 @@ La fonction $\llbracket \Phi \rrbracket_V$ est définie par induction sur la syn
   \item $\llbracket \neg \Phi\rrbracket_V = 1 - \llbracket \Phi\rrbracket_V$
   \item $\llbracket \Phi_1 \vee \Phi_2\rrbracket_V = \text{max}(\llbracket\Phi_1\rrbracket_V,\llbracket\Phi_2\rrbracket_V)$
   \item $\llbracket \Phi_1 \land \Phi_2\rrbracket_V = \text{min}(\llbracket\Phi_1\rrbracket_V,\llbracket\Phi_2\rrbracket_V)$
-  \item $\llbracket \Phi_1 \leftarrow \Phi_2\rrbracket_V = \text{max}(1 - \llbracket\Phi_1\rrbracket_V,\llbracket\Phi_2\rrbracket_V)$
+  \item $\llbracket \Phi_1 \rightarrow \Phi_2\rrbracket_V = \text{max}(1 - \llbracket\Phi_1\rrbracket_V,\llbracket\Phi_2\rrbracket_V)$
   \item $\llbracket \Phi_1 \leftrightarrow \Phi_2\rrbracket_V = \text{min}(\llbracket\Phi_1\rightarrow\Phi_2\rrbracket_V,\llbracket\Phi_2\rightarrow\Phi_1\rrbracket_V)$
 \end{itemize}
 Nous notons $V\vDash\Phi\Leftrightarrow\llbracket\Phi\rrbracket_V=1$ soit "$V$ satisfait $\Phi$."
@@ -40,24 +40,61 @@ L'information contenue dans la définition est souvent représentée sous forme 
     \hline 
   \end{tabular}
 \end{center}
-\warningbox{Dans l'implication suivante : $\Phi_1\rightarrow\Phi_2$, la cas où $\Phi_1$ est faux ne nous intéresse pas. Dans ce cas, l'implication est toujours vraie.}
+\warningbox{Dans l'implication suivante : $\Phi_1\rightarrow\Phi_2$, la cas où $\Phi_1$ est faux ne nous intéresse pas. Dans ce cas, l'implication est toujours vraie.
+  Une hypothèse vraie ne peut pas mener à une conclusion fausse.
+}
 
+\begin{example}\leavevmode
+  Prenons $\Phi$ la formule suivante : $\Phi = (x\vee y) \wedge (\neg y \vee z)$
+  Considérons alors la fonction d'interprétation $V_1$ telle que $V_1(x)=1$, $V_1(y)=0$ et $V_1(z)=1$.
+  On a alors : 
+  \begin{align*}
+    \llbracket\Phi\rrbracket_{V_1} &= \llbracket(x\vee y)\wedge(\neg y\vee z)\rrbracket_{V_1} \\
+                                   &= (x\vee y) \wedge (\neg y \vee z) \\ 
+                                   &= (1\vee 0) \wedge (\neg 0 \vee 1) \\ 
+                                   &= 1 \wedge 1 \\ 
+                                   &= 1
+  \end{align*}
+  On a donc $V_1\vDash\Phi$. 
 
+  Si on considère maintenant la fonction d'interprétation $V_2$ telle que $V_2(x)=0$, $V_2(y)=0$ et $V_2(z)=1$, on a :
+  \begin{align*}
+    \llbracket\Phi\rrbracket_{V_2} &= \llbracket(x\vee y)\wedge(\neg y\vee z)\rrbracket_{V_2} \\
+                                   &= (x\vee y) \wedge (\neg y \vee z) \\ 
+                                   &= (0\vee 0) \wedge (\neg 0 \vee 1) \\ 
+                                   &= 0 \wedge 1 \\ 
+                                   &= 0 
+  \end{align*} 
+  On a donc $V_2\nvDash\Phi$.
+\end{example}
 
 \subsection{Validité et Stabilité}
 \subsubsection{Définitions}
 \begin{definition}{Formule propositionnelle satisfaisable}{formule_propositionnelle_satisfaisable}
-Une formule propositionnelle $\Phi$ est \textbf{satisfaisable} $\Leftrightarrow$ il existe une fonction d'interprétation $V$ pour les propositions de $\Phi$, telle que 
+Une formule propositionnelle $\Phi$ est \textbf{satisfaisable} $\Leftrightarrow$ \textbf{il existe} une fonction d'interprétation $V$ pour les propositions de $\Phi$, telle que 
 $V\vDash\Phi$.
 \end{definition}
 \begin{definition}{Formule propositionnelle valide}{formule_propositionnelle_valide}
-Une formule propositionnelle $\Phi$ est \textbf{valide} $\Leftrightarrow$ pour toute fonction d'interprétation $V$ pour les propositions de $\Phi$, $V\vDash\Phi$.
+Une formule propositionnelle $\Phi$ est \textbf{valide} $\Leftrightarrow$ \textbf{pour toute} fonction d'interprétation $V$ pour les propositions de $\Phi$, $V\vDash\Phi$.
 \end{definition}
+
+\begin{example}\leavevmode
+  En reprenant l'exemple précédent, on a que $\Phi$ est satisfaisable car $V_1\vDash\Phi$. Cependant, $\Phi$ n'est pas valide car $V_2\nvDash\Phi$.
+
+  Notons alors $\Phi_1$ la formule $\Phi_1 = \neg(x\vee y) \iff (\neg x \wedge \neg y)$.
+  On a alors que $\Phi_1$ est valide car $\Phi_1$ est vraie pour toutes les fonctions d'interprétation. 
+  En effet, c'est un loi de Morgan.
+\end{example}
 
 \subsubsection{Conséquence logique}
 \begin{definition}{Conséquence Logique}{conséquence_logique}
 Soit $\Phi_1,...,\Phi_n,\Phi$ des formules. On dira que $\Phi$ est une \textbf{conséquence logique} de $\Phi_1,...,\Phi_n$, noté $\Phi_1,...,\Phi_n\vDash\Phi$, si ($\Phi_1\land ...\land\Phi_n$)$\rightarrow\Phi$ est valide.
 \end{definition}
+
+\begin{example}\leavevmode
+  Prenons $p, \neg p \vDash \bot$. En effet, on a que $p\land\neg p$ est toujours faux.
+
+\end{example}
 
 \subsubsection{Equivalence}
 
@@ -72,12 +109,53 @@ Pour toutes formules $\Phi_1,\Phi_2,\Phi_3$ :
   \item $\Phi_1\land(\Phi_2\lor\Phi_3)\equiv(\Phi_1\land\Phi_2)\lor(\Phi_1\land\Phi_3)$
   \item $\Phi_1\lor(\Phi_2\land\Phi_3)\equiv(\Phi_1\lor\Phi_2)\land(\Phi_1\lor\Phi_3)$
   \item $\Phi_1\rightarrow\Phi_2\equiv(\neg\Phi_1\lor\Phi_2)$
+  \item $\Phi_1\leftrightarrow\Phi_2\equiv(\Phi_1\rightarrow\Phi_2)\land(\Phi_2\rightarrow\Phi_1)$
 \end{itemize}
+
+\newpage
+Les relations d'équivalence nous permettent de susbstituer des formules par d'autres équivalentes dans une formule.
+Cela nous permet de simplifier des formules.
+
+Pour démontrer que deux formules sont équivalentes, on peut utiliser les tables de vérité. 
+\begin{example}\leavevmode
+  Prenons $\Phi_1 \vee (\Phi_2 \wedge \Phi_3) \equiv \Phi_1 \vee \Phi_2) \wedge (\Phi_1 \vee \Phi_3)$.
+  Il nous suffit de vérifier que $\Phi_1 \vee (\Phi_2 \wedge \Phi_3) \iff \Phi_1 \vee \Phi_2) \wedge (\Phi_1 \vee \Phi_3)$ est valide 
+  pour toutes les fonctions d'interprétation ($\Phi_1, \Phi_2, \Phi_3$). 
+  Il faut donc vérifier que les 2 formules ont la même table de vérité (même valeur de vérité pour toutes les fonctions d'interprétation).
+  Voici la table de vérité: 
+  \begin{center}
+    \begin{tabular}{|c|c|c|c|c|c|}
+      \hline 
+      $\Phi_1$ & $\Phi_2$ & $\Phi_3$ & $\Phi_1\vee(\Phi_2\wedge\Phi_3)$ & $(\Phi_1\vee\Phi_2)\wedge(\Phi_1\vee\Phi_3)$ \\ 
+      \hline 
+      0 & 0 & 0 & 0 & 0 \\ 
+      \hline 
+      0 & 0 & 1 & 0 & 0 \\ 
+      \hline 
+      0 & 1 & 0 & 0 & 0 \\ 
+      \hline 
+      0 & 1 & 1 & 1 & 1 \\ 
+      \hline 
+      1 & 0 & 0 & 1 & 1 \\ 
+      \hline 
+      1 & 0 & 1 & 1 & 1 \\ 
+      \hline 
+      1 & 1 & 0 & 1 & 1 \\ 
+      \hline 
+      1 & 1 & 1 & 1 & 1 \\ 
+      \hline 
+    \end{tabular} 
+  \end{center} 
+  On voit que les deux formules ont la même table de vérité. Elles sont donc équivalentes. 
+\end{example}
+
 
 \subsubsection{Lien entre satisfaisabilité et validité}
 \begin{theorem}{Lien entre satisfaisabilité et validité}{lien_satisfaisabilité_validité}
   Une formule $\Phi$ est valide $\Leftrightarrow$ $\neg\Phi$ est insatisfaisable.
 \end{theorem}
+En effet, ça signifie que pour toute fonciton d'interprétation, il n'existe pas de fonction d'interprétation qui satisfait $\neg\Phi$.
+S'il y en avait une, alors $\Phi$ ne serait pas valide car il y aurait une entrée pour laquelle $\Phi$ est fausse.
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.3]{pictures/satisf:vali.png}
@@ -89,6 +167,13 @@ Pour toutes formules $\Phi_1,\Phi_2,\Phi_3$ :
 \begin{definition}{Littéral}{littéral}
   Un littéral est une proposition $x$ ou la négation d'une proposition $\neg x$.
 \end{definition}
+
+\begin{theorem}{Satisfaisabilité des littéraux}{satisfaisabilité_litéraux}
+  Un ensemble $S$ de littéraux est satisfaisable \textbf{ssi} il ne contient pas de littéraux et leur négation, (pair de littéraux \textbf{complémentaire}, $x$ et $\neg x$).
+\end{theorem}
+\begin{example}\leavevmode
+  $\{x, \neg x\}$ est insatisfaisable. alors que $\{x, y, \neg z\}$ est satisfaisable.
+\end{example}
 La méthode des tableaux sémantiques est un algorithme pour tester la satisfaisabilité d'une formule. Elle consiste à construire un arbre dont les noeuds sont des formules et les feuilles sont des littéraux. On construit l'arbre de la façon suivante :
 \begin{itemize}[label=$\bullet$]
   \item On place la formule à tester à la racine de l'arbre.
@@ -105,3 +190,10 @@ La méthode des tableaux sémantiques est un algorithme pour tester la satisfais
 \begin{remark}
   TODO --> Vérifier l'algorithme
 \end{remark}
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=0.5\textwidth]{../pictures/tableausem.png}
+  \end{center}
+  \caption{Exemple de l'arbre créé avec l'algorithme}\label{fig:tableausem}
+\end{figure}
+
