@@ -9,7 +9,8 @@
     Un \textbf{littéral} est une variable $x$ ou sa négation $\neg x$.
 \end{definition}
 \begin{definition}{Clause}{clause}
-    Une \textbf{clause} est une disjonction de littéraux $l_1 \vee l_2 \vee \dots \vee l_n$. Elle est satisfaite par une valuation $V$ s'il existe $i$ tel que $V(l_i) = 1$. Par extension, on appelle .
+    Une \textbf{clause} est une disjonction de littéraux $l_1 \vee l_2 \vee \dots \vee l_n$. Elle est satisfaite par une valuation $V$ s'il existe $i$ tel que $V(l_i) = 1$. Par extension, on appelle $\perp$ la clause
+    \textit{vide}, qui est insatisfaisable.
 \end{definition}
 \begin{example}
     $p$ et $\neg p$ sont des littéraux. $x \vee\neg y \vee r$ est une clause mais pas $x \wedge y$.
@@ -93,7 +94,7 @@ Afin de parvenir à une FNC ou une FND, on utilise les transformations successiv
 \end{definition}
 Si $S$ est satisfaisable, on aimerait que l'algorithme nous retourne une valuation $V$ qui satisfait $S$.
 \begin{remark}
-    Actuellement, on ne sait toujours pas s'il existe un algorithme pour ce problème dont la complexité en temps est polynomiale. L'intuition veut que ce ne soit pas le cas mais aucune preuve n'a pu être fournie jusqu'à présent. Si on parvenait à le prouver, on pourrait gagner un prix d'un million de dollars ;). C'est un problème qui appartient à la classe NP. (cf. chapitre sur la complexité) 
+    Actuellement, on ne sait toujours pas s'il existe un algorithme pour ce problème dont la complexité en temps est polynomiale. L'intuition veut que ce ne soit pas le cas mais aucune preuve n'a pu être fournie jusqu'à présent. Si on parvenait à le prouver, on pourrait gagner un prix d'un million de dollars ;). C'est un problème qui appartient à la classe NP. (cf. \ref{sec:complexité}) 
 \end{remark}
 
 \subsection{Introduction aux solveurs SAT}
@@ -215,4 +216,47 @@ Si on suppose que $C_i = l_1\wedge\dots l_k$ où $l_i$ sont des littéraux, alor
 
 
 \subsection{Variantes du problème SAT}
-TODO
+\subsubsection{2-SAT}
+Les clauses ne contiennent qu'au plus deux littéraux. C'est solvable en temps polynomial alors que 3-SAT est NP-complet.
+\begin{example}
+    \begin{equation*}
+        (x_1\vee x_2)\wedge x_3\wedge (x_4\vee\neg x_1) \wedge (\neg x_3 \vee\neg x_2)
+    \end{equation*}
+\end{example}
+
+\subsubsection{QSAT}
+Ici, on décide la satisfaisabilité de formules de la forme :
+\begin{equation*}
+    \forall x_1 \exists q_1\forall x_2\exists q_2\dots\forall x_n\exists q_n\cdot \Phi
+\end{equation*}
+Où $\Phi$ est une formule en FNC. On peut montrer que QSAT est PSPACE-complet car QSAT peut être résolu en espace polynomial et tous
+les problèmes pouvant être résulus en espace polynomial peuvent se réduire au problème QSAT en temps polynomial, autrement dit, 
+QSAT est aussi difficile que tous les problèmes pouvant être résolu en espace polynomial.
+\begin{example}
+    Voici un exemple de formule QSAT :
+    \begin{equation*}
+        \forall x\exists q\cdot (x\vee q)\wedge(\neg x \vee q)
+    \end{equation*}
+\end{example}
+
+\subsubsection{MAX-SAT}
+Étant donné une formule $\Phi$ en FNC et un entier $k\in\mathbb{N}$, peut-on satisfaire au moins $k$ clauses ?
+\begin{example}
+    Pour :
+    \begin{equation*}
+        x \wedge y \wedge (\neg x \vee \neg y)
+    \end{equation*}
+    On ne peut satisfaire au plus que deux clauses.
+\end{example}
+
+\subsubsection{WEIGHTED-MAX-SAT}
+On attribue des poids à chaque clause, on se donne un entier $r$ et on veut savoir si on peut satisfaire un ensemble de clauses dont
+la somme des poids est au moins $r$.
+\begin{example}
+    Pour :
+    \begin{equation*}
+        x \wedge y \wedge (\neg x \vee \neg y)
+    \end{equation*}
+    avec poids(x)=1, poids(y)=1 et poids($\neg x \vee \neg y$)=2 et $r=3$. En mettant x à vrai et y à faux, on satisfait la première
+    et la troisième clause et on a le poids total de 3.
+\end{example}
