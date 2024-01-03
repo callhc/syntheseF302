@@ -142,7 +142,7 @@ La sémantique est la suivante : "$x_{i,j}$ est vraie si et seulement s'il y a u
 \subsubsection*{Pas d'attaque horizontale}
 "Pour toute ligne, il n'existe pas deux reines sur cette ligne."
 \begin{equation*}
-    \bigwedge_{i \in \{1,\dots,8\}} \neg (\bigvee_{j,j' \in \{1,\dots,8\} | j \neq j'} x_{i,j} \wedge x_{i,k})
+    \bigwedge_{i \in \{1,\dots,8\}} \neg (\bigvee_{j,j' \in \{1,\dots,8\} | j \neq j'} x_{i,j} \wedge x_{i,j'})
 \end{equation*}
 \begin{equation*}
     \equiv \bigwedge_{i,j,j' \in \{1,\dots,8\} | j \neq j'} (\neg x_{i,j} \vee \neg x_{i,j'})
@@ -150,7 +150,7 @@ La sémantique est la suivante : "$x_{i,j}$ est vraie si et seulement s'il y a u
 \subsubsection*{Pas d'attaque verticale}
 "Pour toute colonne, il n'existe pas deux reines sur cette colonne."
 \begin{equation*}
-    \bigwedge_{j \in \{1,\dots,8\}} \neg (\bigvee_{i,i' \in \{1,\dots,8\} | i \neq i'} x_{i,j} \wedge x_{k,j})
+    \bigwedge_{j \in \{1,\dots,8\}} \neg (\bigvee_{i,i' \in \{1,\dots,8\} | i \neq i'} x_{i,j} \wedge x_{i',j})
 \end{equation*}
 \begin{equation*}
     \equiv \bigwedge_{i,i',j \in \{1,\dots,8\} | i \neq i'} (\neg x_{i,j} \vee \neg x_{i',j})
@@ -179,7 +179,7 @@ Il se peut que le problème ne s'exprime pas facilement par une formule en FNC. 
     \begin{equation*}
         (x_1\vee x_2) \wedge (x_1 \leftrightarrow x\wedge q) \wedge (x_2 \leftrightarrow \neg(y\vee r))
     \end{equation*}
-    Il reste encore à mattre les deux formules en FNC : (cf. \ref{sec:mettreFNCFND})
+    Il reste encore à mettre les deux formules en FNC : (cf. \ref{sec:mettreFNCFND})
     \begin{itemize}[label=\textbullet]
         \item $x_1 \leftrightarrow x \wedge q$
         \begin{equation*}
