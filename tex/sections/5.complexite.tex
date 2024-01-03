@@ -280,8 +280,8 @@ Ce problème est $\mathcal{NP}$-complet. Effectivement :
 \begin{enumerate}
     \item BinPacking est dans $\mathcal{NP}$ : on peut vérifier en temps polynomial (une assignation de chaque objet à un numéro
     de sac entre 1 et $k$) si une solution candidate satisfait la contrainte de capacité.
-    \item BinPacking est $\mathcal{NP}$-dur : Ceci est démontrable en faisant la réduction en temps polynomial du problème 2-
-    partition, qui est un problème $\mathcal{NP}$-complet.
+    \item BinPacking est $\mathcal{NP}$-dur : Ceci est démontrable en faisant la réduction en temps polynomial du problème 
+    2-partition, qui est un problème $\mathcal{NP}$-complet.
     \begin{proof}
         \begin{itemize}[label=$\rightarrow$]
             \item \textbf{Instance de 2-partition} : $n$ entiers $c_1,...,c_n$. On veut savoir s'il existe $S\subseteq\{1,...,n\}$
@@ -306,11 +306,11 @@ en temps polynomial, pour voir ceci, voir le cours. (slides 25 jusqu'à 34)\\
 \end{remark}
 
 
-\subsection{Problèemes indécidables}
+\subsection{Problèmes indécidables}
 \label{sub:probleemes_indecidables}
 \begin{definition}{Problème indécidable}{problème_indécidable}
     Un problème de décision $P$ sur un alphabet $\Sigma$ est indécidable s'il n'existe pas d'algorithme $A$ prenant un mot sur
-    $\Sigma$ et retournan, en un nombre fini d'étapes de calcul, la valeur 0 ou 1, tel que pour tout mot $x$ sur $\Sigma$,
+    $\Sigma$ et retournant, en un nombre fini d'étapes de calcul, la valeur 0 ou 1, tel que pour tout mot $x$ sur $\Sigma$,
     $A(x)=1$ ssi $x\in P$.\\
     En d'autres termes, un problème est indécidable s'il n'existe pas d'algorithme pour le résoudre.
 \end{definition}
