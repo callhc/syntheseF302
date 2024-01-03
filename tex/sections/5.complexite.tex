@@ -23,7 +23,7 @@
 \begin{example}
     Avec $\Sigma = \{0,1\}$,
     \begin{equation*}
-        \text{PRIME} = \{10,11,101,111,cdots\} 
+        \text{PRIME} = \{10,11,101,111,\dots\} 
     \end{equation*}
     l'ensemble des nombres premiers en binaire.
 \end{example}
@@ -93,6 +93,8 @@ plus faible.}
 
 \subsubsection{Algorithme de vérification}
 \label{sub:algorithme_de_verification}
+Un algorithme de vérification est un algorithme qui sur base d'une solution candidate à un problème de décision, décide si
+cette solution est valide ou non.
 \begin{definition}{Algorithme de vérification}{algorithme_de_vérification}
     Un algorithme de vérification pour un problème $P\subseteq\Sigma^*$ est un algorithme de décision (retournant 1 ou 0)
     $A$ prenant deux mots en argument, qui termine pour toute entrée, tel que:
@@ -104,6 +106,7 @@ plus faible.}
 
 \subsubsection{La classe $\mathcal{NP}$}
 \label{sub:la_classe_np}
+La classe $\mathcal{NP}$ est la classe des problèmes pouvant être vérifiés en temps polynomial par un algorithme de vérification.
 \begin{definition}{Classe $\mathcal{NP}$}{classe_np}
     Un problème $P$ est dans $\mathcal{NP}$ s'il existe un algorithme de vérification $A$ de complexité polynomiale en temps
     et une constante $k$, tels que pour toute entrée $u$, les deux afformations suivantes sont équivalentes:
@@ -123,13 +126,18 @@ plus faible.}
         \item tous les problèmes de la classe $\mathcal{P}$ sont dans $\mathcal{NP}$.
     \end{itemize}
 \end{example}
-Tout problème $\mathcal{NP}$ peut être décidé par un algorithme de complexité exponentielle en temps car étant donné un mot
-$u$ en entrée, il suffit d'énumérer tous les certificats de longueur au plus $a\cdot|u|^k$ et d'appeler l'algorithme de 
-vérification. Pour SAT, par exemple, il suffit d'énumérer toutes les interprétations possibles et les tester.\\
-Il existe une fameuse conjecture en théorie de la complexité qui est la suivante : 
-\begin{equation*}
-    \mathcal{P}\neq\mathcal{NP}
-\end{equation*}
+\begin{remark}
+    Tout problème $\mathcal{NP}$ peut être décidé par un algorithme de complexité exponentielle en temps car étant donné un mot
+    $u$ en entrée, il suffit d'énumérer tous les certificats de longueur au plus $a\cdot|u|^k$ et d'appeler l'algorithme de 
+    vérification. Pour SAT, par exemple, il suffit d'énumérer toutes les interprétations possibles et les tester, pour le coloriage,
+    il suffit dénumérer tous les coloriages possibles et les tester.\\
+    Il existe une \textbf{fameuse conjecture} en théorie de la complexité qui est la suivante : 
+    \begin{equation*}
+        \mathcal{P}\neq\mathcal{NP}
+    \end{equation*}
+    Autrement dit, on ne sait pas encore démontrer que vérifier une solution candidate en temps polynomial est plus puissant que
+    trouver une solution en temps polynomial.
+\end{remark}
 
 \subsubsection{Temps non-déterministe polynomial}
 \label{sub:temps_non_deterministe_polynomial}
@@ -144,7 +152,7 @@ laquelle l'algorithme répondra oui.
 \subsubsection{Réductions, $\mathcal{NP}$-dureté et $\mathcal{NP}$-complétude}
 \label{sub:reductions_np_durete_et_np_completude}
 \begin{definition}{$\mathcal{NP}$-dur}{np-dur}
-    Un problème de décision $P$ est $\mathcal{NP-dur}$ si pour tout problème $P'$ de $\mathcal{NP}$ se réduit à $P$ en temps
+    Un problème de décision $P$ est $\mathcal{NP}$-dur si pour tout problème $P'$ de $\mathcal{NP}$ se réduit à $P$ en temps
     polynomial, i.e. qu'il existe un algorithme $T$ de complexité polynomiale en temps, qui transforme tout mot $u'$ en un 
     mot $T(u')$ tel que $u'\in P'$ ssi $T(u')\in P$.
 \end{definition}
