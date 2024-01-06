@@ -44,6 +44,18 @@ L'information contenue dans la définition est souvent représentée sous forme 
   Une hypothèse vraie ne peut pas mener à une conclusion fausse.
 }
 
+Les formules ne sont pas toujours facile à lire. Pour mieux les interprétées, on peut mettre des parenthèses pour indiquer la priorité des opérations. 
+Voici les règles de priorité des opérations, de la plus prioritaire à la moins prioritaire : 
+\begin{enumerate}
+  \item $\neg$
+  \item $\wedge$
+  \item $\vee$
+  \item $\rightarrow$
+  \item $\leftrightarrow$ 
+\end{enumerate}
+Tous les opérateurs sont associatifs à gauche \textbf{sauf} $\rightarrow$ qui est associatifs à droite.
+Être associatif à gauche signifie que si on a plusieurs opérateurs de même priorité, on les évalue de gauche à droite. (?)
+
 \begin{example}\leavevmode
   Prenons $\Phi$ la formule suivante : $\Phi = (x\vee y) \wedge (\neg y \vee z)$
   Considérons alors la fonction d'interprétation $V_1$ telle que $V_1(x)=1$, $V_1(y)=0$ et $V_1(z)=1$.
@@ -112,7 +124,7 @@ Pour toutes formules $\Phi_1,\Phi_2,\Phi_3$ :
   \item $\Phi_1\leftrightarrow\Phi_2\equiv(\Phi_1\rightarrow\Phi_2)\land(\Phi_2\rightarrow\Phi_1)$
 \end{itemize}
 
-\newpage
+% \newpage
 Les relations d'équivalence nous permettent de susbstituer des formules par d'autres équivalentes dans une formule.
 Cela nous permet de simplifier des formules.
 
