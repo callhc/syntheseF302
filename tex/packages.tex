@@ -45,6 +45,8 @@
 \usepackage[most]{tcolorbox}
 \usepackage{tikz,tikz-3dplot,tikz-cd,tkz-tab,tkz-euclide,pgf,pgfplots}
 \usetikzlibrary{automata}
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+            \node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
 % \usepackage{comment} % For commenting large blocks of text and math efficiently
 % \usepackage{fancyvrb} % For custom verbatim environments
 \usepackage{multicol}
